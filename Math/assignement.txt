@@ -1,0 +1,259 @@
+# Frog Jumps
+import sys
+from pprint import  pprint as pp
+
+line = [int(x) for x in input().split(',')]
+a1,b1,a2,b2 = line
+
+for jump in range(10000):
+    if a1 == a2 :
+        print('YES')
+        sys.exit()
+    a1 += b1
+    a2 += b2
+else:
+    print('NO')
+
+# factorial
+x = int(input())
+
+def fact(x):
+    if x == 0:
+        return 1
+    return x * fact(x-1)
+
+print(fact(x))
+
+# Create Dictionary and print
+x = int(input())
+dictionary = {i: i**2 for i in range(1,x+1)}
+#for k,v in dictionary.items():
+#    print(k,":",v,",", end='')
+print(dictionary)
+
+# Print list and tuple
+listt = [int(x) for x in input().split(',')]
+print(listt)
+print(tuple(listt))
+
+# Simple Class
+class IOString(object):
+    def __init__(self):
+        self.s = ""
+
+    def GetString(self):
+        self.s = input('Input String: ')
+
+    def PrintString(self):
+        print(self.s.upper())
+
+strObj = IOString()
+strObj.GetString()
+strObj.PrintString()
+
+# math sqrt function with lambda and map
+import math
+from pprint import  pprint as pp
+
+line = [int(x) for x in input('Enter Input: ').split(',')]
+C = 50
+H = 30
+print(*map(lambda x: int(round(math.sqrt(( 2 * C * float(x))/H))),line))
+
+# squares array
+line = [int(x) for x in input('Enter Input: ').split(',')]
+array = [[0]*line[1] for x in range(line[0])]
+for i in range(line[0]):
+    for j in range(line[1]):
+        array[i][j] = i*j
+
+print(array)
+
+# input word list sorted
+line = [x for x in input().split(',')]
+line.sort()
+print(','.join(line))
+
+# get words and print upper
+array = []
+while True:
+    s = input()
+    if s:
+        array.append(s)
+    else:
+        break
+
+for x in range(len(array)):
+    print(array[x].upper())
+
+# Binary division
+line = [x for x in input('Enter: ').split(',')]
+value = []
+for p in line:
+    intp = int(p, 2)
+    if not intp % 5:
+        value.append(p)
+
+print(','.join(value))
+
+# print numbers whos digits are even numbers in a range given
+line = [int(x) for x in input('Enter: ').split(',')]
+array = []
+for i in range(line[0], line[1]+1):
+    s = str(i)
+    for j in range(len(s)):
+        if int(s[j]) % 2:
+            break
+    else:
+        array.append(s)
+print(','.join(array))
+
+# Print letters and numbers in a input string
+line = input()
+number = 0
+letter = 0
+for i in line:
+    if i.isdigit():
+        number += 1
+    elif i.isalpha():
+        letter += 1
+
+print('Letter: ', letter)
+print('Number: ', number)
+
+# a + aa + aaa + aaaa of a number
+a = input()
+print(int(a)+int(a+a)+int(a+a+a)+int(a+a+a+a))
+
+# Lambda and filter 
+line = [int(x) for x in input().split(',')]
+result=(filter(lambda x: x%2 != 0,line))
+print(*result)
+
+# Python regular expressions
+import re
+line = [word for word in input().split(',')]
+pp(line)
+result = []
+for pas in line:
+    #print(pas)
+    if len(pas) < 6 or len(pas)>12:
+        #print(len(pas))
+        continue
+    if not re.search("[a-z]",pas):
+        #print('a-z')
+        continue
+    elif not re.search("[A-Z]",pas):
+        #print('A-Z')
+
+
+\d
+Matches any decimal digit; this is equivalent to the class [0-9].
+\D
+Matches any non-digit character; this is equivalent to the class [^0-9].
+\s
+Matches any whitespace character; this is equivalent to the class [ \t\n\r\f\v].
+\S
+Matches any non-whitespace character; this is equivalent to the class [^ \t\n\r\f\v].
+\w
+Matches any alphanumeric character; this is equivalent to the class [a-zA-Z0-9_].
+\W
+Matches any non-alphanumeric character; this is equivalent to the class [^a-zA-Z0-9_].
+
+[] - charecter class
+^ - first charecter
+\ - remove the special meaning
+[^5] - not 5
+. - anything other than blank line
+re.DOTALL - match every line even new line
+* - repeat any including 0
+ca*t - ct, cat, caat, caaat etc
++ - one or more times
+ca+t - cat , caaaat etc bu tnot ct
+? - 0 or once , home-?brew - homebrew or home-brew
+{m,n} - least m and most n - a{1,3}b - ab, aab, aaab
+
+match()	Determine if the RE matches at the beginning of the string.
+search()	Scan through a string, looking for any location where this RE matches.
+findall()	Find all substrings where the RE matches, and returns them as a list.
+finditer()	Find all substrings where the RE matches, and returns them as an iterator.
+
+# Murliple position sort
+from operator import itemgetter, attrgetter
+
+l = []
+while True:
+    s = raw_input()
+    if not s:
+        break
+    l.append(tuple(s.split(",")))
+
+print sorted(l, key=itemgetter(0,1,2))
+
+# Up/Down/Left/Right
+import math
+current = [0,0]
+while True:
+    s = input().split()
+    #print(s)
+    if s:
+        dir, step = s[0], int(s[1])
+        if dir == 'UP':
+            current[0] += step
+        elif dir == 'DOWN':
+            current[0] -= step
+        elif dir == 'LEFT':
+            current[1] -= step
+        elif dir == 'RIGHT':
+            current[1] += step
+    else:
+        break
+
+print(int(round(math.sqrt(current[0]**2+current[1]**2))))
+
+# words repeat count using dict
+line = input().split()
+freq = {}
+for word in line:
+    freq[word] = freq.get(word,0)+1
+
+words = list(freq.keys())
+words.sort()
+
+for w in words:
+    print(w,freq[w])
+
+
+# Again Class
+class Person():
+    name = 'Person'
+
+    def __init__(self, name=None):
+        self.name = name
+
+
+jeffrey = Person("Jeffrey")
+print(Person.name, " name is ", jeffrey.name)
+
+nico = Person()
+nico.name = "Nico"
+print(Person.name, " name is ", nico.name)
+
+# Print array in cloakware direction
+line = input().split()
+row, column = int(line[0]), int(line[1])
+array = [[0]*column for i in range(row)]
+result = []
+
+for i in range(row):
+    line = input().split()
+    for j in range(column):
+        array[i][j] = int(line[j])
+
+
+for i in range(row):
+    for j in range(column-1,-1,-1):
+        print(array[j][i],end=' ')
+    print()
+
+

@@ -1,0 +1,782 @@
+Python syntax - Done
+pythom basic math operations - done
+Deep copy - done
+Math Function - done
+special prints %2.2f - done
+Techgig/practice
+hackerearth
+Exception handling - not required
+https://docs.python.org/3/tutorial/modules.html
+
+
+Important Syntax
+>>> squares.append(12*12)
+>>> squares
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144]
+>>> len(squares)
+12
+>>> squares[2:5] = [] ==> remove items from list
+>>> squares
+[1, 4, 36, 49, 64, 81, 100, 121, 144]
+>>> len(squares)
+9
+
+>>> squares.index(81) ==> Find index of a value in list
+5
+
+x = [5,1,7,0,3,4,5,3,2,6,7,3,6]
+get_indexes = lambda x, xs: [i for (y, i) in zip(xs, range(len(xs))) if x == y]
+print(get_indexes(7,x)) ==> Print index of all occurance of an item in array
+
+# Fibonacci series print in same line
+#a, b = 0, 1
+#while b < 1000:
+#    print(b, end=' ')
+#    a, b = b, a+b
+
+# Enumerate use case
+Months = ["Jan","Feb","Mar","April","May","June"]
+for i, m in enumerate(Months):
+    print(i,m)
+for i,n in enumerate(range(10)):
+    print(i,n)
+	
+# Continue statement to skip one occurance of a loop with condition
+for x in range (10,20):
+    if (x == 15):
+        continue # Skip this loop
+    print(x)
+
+# Break to come out of loop once the condition occures
+for x in range (10,20):
+    if (x == 15):
+        break # Stop the loop once the condition occures
+    print(x)
+	
+# else part of a loop # Prime number
+for n in range(2, 20):
+    for x in range(2, n):
+        if n % x == 0: # To get the reminder of division
+            print(n, "==", x, 'X', n//x) # To get the integer result of a division
+            break
+    else: # This will execute if no if condition is satisfied in above loop.
+        print(n, 'is a prime number')
+
+# Print odd or even numbers in a range
+for num in range(2,20):
+    if num % 2 == 0:
+        print("found and even number", num)
+        continue
+    print('Found and odd number', num)
+
+# Check a keyword in a list/Tuple
+if ok in ('y', 'ye', 'yes'):
+
+# Joins strings with separator
+def concat(*args, sep="/"):
+    return sep.join(args)
+	
+# Print in same line from a range
+args = [3, 6]
+print(*range(*args))
+3 4 5
+
+def parrot(voltage, state='a stiff', action='voom'):
+    print("-- This parrot wouldn't", action, end=' ')
+    print("if you put", voltage, "volts through it.", end=' ')
+    print("E's", state, "!")
+
+d = {"voltage": "four million", "state": "bleedin' demised", "action": "VOOM"}
+
+parrot(**d) # Unpack the argument and pass to function
+
+#lambda argument_list: expression
+f = lambda x, y : x+y
+f(1,3)
+4
+
+# map function is used to pass a sequence to a function. First argument is the function name and second argument is list or any sequence
+# it will return another list after applying individual elements of sequence passed to the function
+r =  map(func, seq)
+Celsius = [39.2, 36.5, 37.3, 37.8]
+Fahrenheit = map(lambda x: (float(9)/5)*x + 32, Celsius)
+print(*Fahrenheit)
+
+# map and lambda usage
+a = [1,2,3,4]
+b = [17,12,11,10	]
+c = [-1,-4,5,9]
+print(*map(lambda x,y: x+y, a,b))
+print(*map(lambda x,y,z: x+y+z, a,b,c))
+print(*map(lambda x,y,z: x+y-z, a,b,c))
+
+# filter(function,list), Same like map, but don't return if the expression is false
+fib = [0,1,1,2,3,5,8,13,21,34,55]
+result = filter(lambda x: x % 2, fib)
+print('Odd Numbers:', *result)
+result = filter(lambda x: x % 2 == 0, fib)
+print('Even Numbers:', *result)
+
+# reduce and lambda, reduce will return only one based on the function. 
+>>> reduce(lambda a,b: a if (a>b) else b, [47,11,42,102,13]) # find biggest number
+102
+>>> reduce(lambda a,b: a+b, range(101)) # print sum of numbers in a range
+5050
+
+# List comprehention  Pythagorean triples
+N = 40
+print(*[(x,y,z) for x in range(1,N) for y in range(x,N) for z in range(y,N) if x**2 + y**2 == z**2])
+
+# Generator comprehension to print squares
+print(*list(x**2 for x in range(21)))
+
+# set comprehension
+from math import  sqrt
+n = 100
+sqrt_n = int(sqrt(n))
+no_primes = {j for i in range(2,sqrt_n)for j in range(i*2, n, i)}
+print('Primes: ', *{i for i in range(n) if i not in no_primes})
+
+print(*{x for x in 'abracadabra' if x not in 'abc'})
+
+# Generators
+def fibonacci(n):
+    """Fibonacci numbers generator, first n"""
+    a, b, counter = 0, 1, 0
+    while True:
+        #if (counter > n): return
+        yield a
+        a, b = b, a + b
+        counter += 1
+
+f = fibonacci(10)
+counter = 0
+for x in f:
+    print(x,)
+    counter += 1
+    if (counter > 10): break
+print
+
+# Recursive Generator
+def permutations(items):
+    n = len(items)
+    if n==0: yield []
+    else:
+        for i in range(len(items)):
+            for cc in permutations(items[:i]+items[i+1:]):
+                yield [items[i]]+cc
+
+for p in permutations(['r','e','d']): print ''.join(p)
+for p in permutations(list("game")): print ''.join(p)
+
+# generator of generator
+#!/usr/bin/env python
+def fibonacci():
+    """Ein Fibonacci-Zahlen-Generator"""
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+def firstn(g, n):
+	for i in range(n):
+		yield g.next()
+
+print list(firstn(fibonacci(), 10))
+
+# Sort based on position
+pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'), (6, 'six')]
+pairs.sort(key=lambda pair: pair[1])
+print(*pairs)
+pairs.sort(key=lambda pair: pair[0])
+print(*pairs)
+
+#Function Annotations
+>>> def f(ham: str, eggs: str = 'eggs') -> str:
+...     print("Annotations:", f.__annotations__)
+...     print("Arguments:", ham, eggs)
+...     return ham + ' and ' + eggs
+...
+>>> f('spam')
+Annotations: {'ham': <class 'str'>, 'return': <class 'str'>, 'eggs': <class 'str'>}
+Arguments: spam eggs
+'spam and eggs'
+
+https://docs.python.org/3/tutorial/datastructures.html
+# Data structures
+list.append(value)
+list.extend([another_list])
+list.insert(3,43) # add 43 in 3rd place
+list.remove(value) # remove first occurance of the value from the list
+list.pop(index) remove and return the value from the index position, if no index, then remove last item
+list.clear() == del a[:]
+list.index(value)
+list.count(value) # number of occurance of value
+list.sort(key=None, reverse=False)
+list.reverse()
+list.copy()
+del list[0]
+del list[2:4]
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.count('apple')
+2
+>>> fruits.count('tangerine')
+0
+>>> fruits.index('banana')
+3
+>>> fruits.index('banana', 4)  # Find next banana starting a position 4
+6
+# Using list as stack (last in last out)
+stack.append(new) # add to last
+stack.pop() # remove last one
+
+#Using Lists as Queues (First in first out)
+from collections import deque
+queue = deque(["Eric", "John", "Michael"])
+queue.append("Terry")
+queue.popleft() # "Eric" removed
+queue.appendleft(value)
+queue.extendleft([list]) # extend to left side of the queue
+quque.popleft()
+quque.rotate(n=1)
+
+# List comprehension
+squares = list(map(lambda x: x**2, range(10)))
+squares = [x**2 for x in range(10)]
+[(x,y) for x in [1,2,3] for y in [3,1,4] if x != y]
+
+# define multi dimention array
+#matrix = [[0]*3 for i in range(5)] # create a 5 raw 3 colum aray
+#matrix[4][1] = 2 # assign the value to 5th raw, 2nd colum of array defined
+
+# faltten a multi diamention list
+#vec = [[1,2,3], [4,5,6], [7,8,9]]
+[num for elem in vec for num in elem]
+
+# Transpose rows and columns
+>>> matrix = [ [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12],]
+>>> [[row[i] for row in matrix] for i in range(4)]
+[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+>>>
+>>> list(zip(*matrix))
+[(1, 5, 9), (2, 6, 10), (3, 7, 11), (4, 8, 12)]
+
+# Zip function
+
+# sets
+>>> # Demonstrate set operations on unique letters from two words
+...
+>>> a = set('abracadabra')
+>>> b = set('alacazam')
+>>> a                                  # unique letters in a
+{'a', 'r', 'b', 'c', 'd'}
+>>> a - b                              # letters in a but not in b
+{'r', 'd', 'b'}
+>>> a | b                              # letters in a or b or both
+{'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}
+>>> a & b                              # letters in both a and b
+{'a', 'c'}
+>>> a ^ b                              # letters in a or b but not both
+{'r', 'd', 'b', 'm', 'z', 'l'}
+
+# Dictionary
+list(d.keys())
+tel = {'jack': 4098, 'sape': 4139}
+tel['guido'] = 4127
+del tel['sape']
+print(*list(tel.keys()))
+print(*list(tel.values()))
+>>> 'guido' in tel
+True
+dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
+print(*{x: x**2 for x in range(10)}) # Dict comprehension
+dict(sape=4139, guido=4127, jack=4098)
+for k, v in tel.items():
+    print(k, v)
+for i, v in enumerate(['tic', 'tac', 'toe']): # enumerate to print the index value as well
+	print(i,v)
+
+# zip, special print
+questions = ['name', 'quest', 'favorite color']
+answers = ['lancelot', 'the holy grail', 'blue']
+for q, a in zip(questions, answers):
+    print('What is your {0}?  : It is {1}'.format(q,a))
+
+# print a list in reverse order
+print(*reversed(range(1,10,2)))
+
+# set and sorted
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+print(*sorted(set(basket)))
+
+# NaN = Not a number
+raw_data = [56.2, float('NaN'), 51.7, 55.3, 52.5, float('NaN'), 47.8]
+print(*[v for v in raw_data if not math.isnan(v)])
+
+# set the python library path
+>>> import sys
+>>> sys.path.append('/ufs/guido/lib/python')
+
+# Special printing, get the count from array and create a new array with element and count
+result = [[x.split('ICTO')[0],output.count(x)] for x in set(output)]
+result.sort(key=lambda pair: pair[1], reverse=True)
+#pp(result)
+print('%-65s ==> %s' %( "=========================== Application NAMES  ==================","= Pending COUNT ="))
+for i in range(len(result)):
+        print('%-65s ==> %s' % (result[i][0], result[i][1]))
+
+# formated print
+>>> for x in range(1, 11):
+...     print(repr(x).rjust(2), repr(x*x).rjust(3), end=' ')
+...     # Note use of 'end' on previous line
+...     print(repr(x*x*x).rjust(4))
+>>> for x in range(1, 11):
+...     print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
+str.ljust() # left justify
+str.center() # center
+str.ljust(n)[:n]
+str.zfill(5) # fill zero for remaining places
+>>> print('{0} and {1}'.format('spam', 'eggs'))
+spam and eggs
+>>> print('{1} and {0}'.format('spam', 'eggs'))
+eggs and spam
+>>> print('The story of {0}, {1}, and {other}.'.format('Bill', 'Manfred',
+                                                       other='Georg'))
+The story of Bill, Manfred, and Georg.
+>>> import math
+>>> print('The value of PI is approximately {0:.3f}.'.format(math.pi))
+The value of PI is approximately 3.142.
+
+# Best way to open file
+with open(inventoryfile,"r") as myfile:
+        csvfile = csv.reader(myfile,delimiter=',')
+
+https://docs.python.org/3/tutorial/classes.html
+# Classes
+class Complex:
+    def __init__(self, realpart, imagpart):
+        self.r = realpart
+        self.i = imagpart
+		
+class Mapping:
+    def __init__(self, iterable):
+        self.item_list = []
+        self.__update(iterable)
+
+    def update(self, iterable):
+        for item in iterable:
+            self.item_list.append(item)
+
+    __update = update # private copy of original update() method
+
+class MappingSubClass(Mapping):
+    def update(self, key, values):
+        # provides new signature for update()
+        # but does not break __init__()
+        for item in zip(key, values):
+            self.item_list.append(item)
+			
+# Iterator class
+class Reverse:
+    def __init__(self, data):
+        self.data = data
+        self.index = len(data)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index == 0:
+            raise StopIteration
+        self.index = self.index -1
+        return self.data[self.index]
+
+rev = Reverse('spam')
+for char in rev:
+    print(char, end=' ')
+	
+# generator using yield
+def reverse(data):
+    for index in range(len(data)-1, -1, -1):
+        yield data[index]
+
+for char in reverse('golf'):
+    print(char, end=' ')
+	
+# generator expression
+data = 'golf'
+list(data[i] for i in range(len(data)-1, -1, -1))
+valedictorian = max((student.gpa, student.name) for student in graduates)
+unique_words = set(word  for line in page  for word in line.split())
+from math import pi, sin
+sine_table = {x: sin(x*pi/180) for x in range(0, 91)}
+sum(x*y for x,y in zip(xvec, yvec))         # dot product
+sum(i*i for i in range(10))                 # sum of squares
+
+https://docs.python.org/3/tutorial/stdlib.html
+# Standard library
+>>> import re
+>>> re.findall(r'\bf[a-z]*', 'which foot or hand fell fastest')
+['foot', 'fell', 'fastest']
+>>> re.sub(r'(\b[a-z]+) \1', r'\1', 'cat in the the hat')
+'cat in the hat'
+
+>>> 'tea for too'.replace('too', 'two')
+'tea for two'
+
+>>> # dates are easily constructed and formatted
+>>> from datetime import date
+>>> now = date.today()
+>>> now
+datetime.date(2003, 12, 2)
+>>> now.strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B.")
+'12-02-03. 02 Dec 2003 is a Tuesday on the 02 day of December.'
+
+>>> # dates support calendar arithmetic
+>>> birthday = date(1964, 7, 31)
+>>> age = now - birthday
+>>> age.days
+14368
+
+# Performance measure
+>>> from timeit import Timer
+>>> Timer('t=a; a=b; b=t', 'a=1; b=2').timeit()
+0.57535828626024577
+>>> Timer('a,b = b,a', 'a=1; b=2').timeit()
+0.54962537085770791
+
+https://docs.python.org/3/tutorial/stdlib2.html
+https://docs.python.org/3/reference/grammar.html
+
+Built-in functions
+enumerate(iterable, start=0)
+filter(function, iterable) # construct iterable if the return value of function is True
+format(value[, format_spec]) 
+hex()
+id()
+input([prompt])
+len(iterable/string)
+locals()
+map(function, iterable,...) 
+max(iterable, [key]) 
+min(iterable, [key])
+min(d, key=d.get) # from Dict
+min(d.items(), key=lambda x: x[1]) 
+open(file, mode='r',...)
+pow(x,y) # x to the power of y
+range(stop)
+range(start, stop,[step])
+reversed(seq)
+rount(number, [ndigit])
+set([iterable])
+slice(start, stop,[step])
+sorted(iterable, key=None, reverse=False)
+sum(iterable)
+zip(*iterable) # [1, 2, 3] [4, 5, 6] ==> [(1, 4), (2, 5), (3, 6)]
+
+# Boolean operations:
+Operation	Result	Notes
+x or y	if x is false, then y, else x	(1)
+x and y	if x is false, then x, else y	(2)
+not x	if x is false, then True, else False	(3)
+
+# Comparison
+Operation	Meaning
+<	strictly less than
+<=	less than or equal
+>	strictly greater than
+>=	greater than or equal
+==	equal
+!=	not equal
+is	object identity
+is not	negated object identity
+
+# Numeric operations
+Operation	Result	Notes	Full documentation
+x + y	sum of x and y	 	 
+x - y	difference of x and y	 	 
+x * y	product of x and y	 	 
+x / y	quotient of x and y	 	 
+x // y	floored quotient of x and y	(1)	 
+x % y	remainder of x / y	(2)	 
+-x	x negated	 	 
++x	x unchanged	 	 
+abs(x)	absolute value or magnitude of x	 	abs()
+int(x)	x converted to integer	(3)(6)	int()
+float(x)	x converted to floating point	(4)(6)	float()
+complex(re, im)	a complex number with real part re, imaginary part im. im defaults to zero.	(6)	complex()
+c.conjugate()	conjugate of the complex number c	 	 
+divmod(x, y)	the pair (x // y, x % y)	(2)	divmod()
+pow(x, y)	x to the power y	(5)	pow()
+x ** y	x to the power y	(5)	 
+
+Operation	Result
+math.trunc(x)	x truncated to Integral
+round(x[, n])	x rounded to n digits, rounding half to even. If n is omitted, it defaults to 0.
+math.floor(x)	the greatest Integral <= x
+math.ceil(x)	the least Integral >= x
+
+# Bit wise operations
+Operation	Result	Notes
+x | y	bitwise or of x and y	 
+x ^ y	bitwise exclusive or of x and y	 
+x & y	bitwise and of x and y	 
+x << n	x shifted left by n bits	(1)(2)
+x >> n	x shifted right by n bits	(1)(3)
+~x	the bits of x inverted	 
+
+# Sequence operations
+Operation	Result	Notes
+x in s	True if an item of s is equal to x, else False	(1)
+x not in s	False if an item of s is equal to x, else True	(1)
+s + t	the concatenation of s and t	(6)(7)
+s * n or n * s	equivalent to adding s to itself n times	(2)(7)
+s[i]	ith item of s, origin 0	(3)
+s[i:j]	slice of s from i to j	(3)(4)
+s[i:j:k]	slice of s from i to j with step k	(3)(5)
+len(s)	length of s	 
+min(s)	smallest item of s	 
+max(s)	largest item of s	 
+s.index(x[, i[, j]])	index of the first occurrence of x in s (at or after index i and before index j)	(8)
+s.count(x)	total number of occurrences of x in s	 
+
+# Mutable Sequence Types
+Operation	Result	Notes
+s[i] = x	item i of s is replaced by x	 
+s[i:j] = t	slice of s from i to j is replaced by the contents of the iterable t	 
+del s[i:j]	same as s[i:j] = []	 
+s[i:j:k] = t	the elements of s[i:j:k] are replaced by those of t	(1)
+del s[i:j:k]	removes the elements of s[i:j:k] from the list	 
+s.append(x)	appends x to the end of the sequence (same as s[len(s):len(s)] = [x])	 
+s.clear()	removes all items from s (same as del s[:])	(5)
+s.copy()	creates a shallow copy of s (same as s[:])	(5)
+s.extend(t) or s += t	extends s with the contents of t (for the most part the same as s[len(s):len(s)] = t)	 
+s *= n	updates s with its contents repeated n times	(6)
+s.insert(i, x)	inserts x into s at the index given by i (same as s[i:i] = [x])	 
+s.pop([i])	retrieves the item at i and also removes it from s	(2)
+s.remove(x)	remove the first item from s where s[i] == x	(3)
+s.reverse()	reverses the items of s in place	(4)
+
+# String operations
+str.capitalize()
+str.casefold()
+str.count()
+str.find()
+str.format()
+str.isalnum()
+str.isalpha()
+str.isdecimal()
+str.islower()
+str.isprintable()
+str.join(iterable)
+str.lstrip()
+str.replace(old, new)
+str.rfind()
+str.rstrip()
+str.split()
+str.swapcase()
+str.title()
+# Special characters
+Representation	Description
+\n	Line Feed
+\r	Carriage Return
+\r\n	Carriage Return + Line Feed
+\v or \x0b	Line Tabulation
+\f or \x0c	Form Feed
+\x1c	File Separator
+\x1d	Group Separator
+\x1e	Record Separator
+\x85	Next Line (C1 Control Code)
+\u2028	Line Separator
+\u2029	Paragraph Separator
+
+# print format
+Conversion	Meaning	Notes
+'d'	Signed integer decimal.	 
+'i'	Signed integer decimal.	 
+'o'	Signed octal value.	(1)
+'u'	Obsolete type . it is identical to 'd'.	(6)
+'x'	Signed hexadecimal (lowercase).	(2)
+'X'	Signed hexadecimal (uppercase).	(2)
+'e'	Floating point exponential format (lowercase).	(3)
+'E'	Floating point exponential format (uppercase).	(3)
+'f'	Floating point decimal format.	(3)
+'F'	Floating point decimal format.	(3)
+'g'	Floating point format. Uses lowercase exponential format if exponent is less than -4 or not less than precision, decimal format otherwise.	(4)
+'G'	Floating point format. Uses uppercase exponential format if exponent is less than -4 or not less than precision, decimal format otherwise.	(4)
+'c'	Single character (accepts integer or single character string).	 
+'r'	String (converts any Python object using repr()).	(5)
+'s'	String (converts any Python object using str()).	(5)
+'a'	String (converts any Python object using ascii()).	(5)
+'%'	No argument is converted, results in a '%' character in the result.	 
+
+# Deep copy
+copy.copy(x) # Return a shallow copy of x.
+copy.deepcopy(x) # Return a deep copy of x.
+
+# math functions
+math.factorial(x) # factorial of 4 = 1X2X3X4 =24
+math.ceil() # upper ceiling in round off
+math.floor() # round off to lower number
+math.gcd(a,b) # greatest common divisor
+math.exp(x) # exponent # e**x
+math.sqrt() # square root
+math.pi
+math.e e= 2.718281
+
+# Mathematical Statistic functions
+import statistics
+mean()	Arithmetic mean (.average.) of data.
+harmonic_mean()	Harmonic mean of data.
+median()	Median (middle value) of data.
+median_low()	Low median of data.
+median_high()	High median of data.
+median_grouped()	Median, or 50th percentile, of grouped data.
+mode()	Mode (most common value) of discrete data.
+
+pstdev()	Population standard deviation of data.
+pvariance()	Population variance of data.
+stdev()	Sample standard deviation of data.
+variance()	Sample variance of data.
+
+# itertools functions.
+import itertools
+Iterator	Arguments	Results	Example
+count()	start, [step]	start, start+step, start+2*step, .	count(10) --> 10 11 12 13 14 ...
+cycle()	p	p0, p1, . plast, p0, p1, .	cycle('ABCD') --> A B C D A B C D ...
+repeat()	elem [,n]	elem, elem, elem, . endlessly or up to n times	repeat(10, 3) --> 10 10 10
+
+Iterator	Arguments	Results	Example
+accumulate()	p [,func]	p0, p0+p1, p0+p1+p2, .	accumulate([1,2,3,4,5]) --> 1 3 6 10 15
+chain()	p, q, .	p0, p1, . plast, q0, q1, .	chain('ABC', 'DEF') --> A B C D E F
+chain.from_iterable()	iterable	p0, p1, . plast, q0, q1, .	chain.from_iterable(['ABC', 'DEF']) --> A B C D E F
+compress()	data, selectors	(d[0] if s[0]), (d[1] if s[1]), .	compress('ABCDEF', [1,0,1,0,1,1]) --> A C E F
+dropwhile()	pred, seq	seq[n], seq[n+1], starting when pred fails	dropwhile(lambda x: x<5, [1,4,6,4,1]) --> 6 4 1
+filterfalse()	pred, seq	elements of seq where pred(elem) is false	filterfalse(lambda x: x%2, range(10)) --> 0 2 4 6 8
+groupby()	iterable[, key]	sub-iterators grouped by value of key(v)	 
+islice()	seq, [start,] stop [, step]	elements from seq[start:stop:step]	islice('ABCDEFG', 2, None) --> C D E F G
+starmap()	func, seq	func(*seq[0]), func(*seq[1]), .	starmap(pow, [(2,5), (3,2), (10,3)]) --> 32 9 1000
+takewhile()	pred, seq	seq[0], seq[1], until pred fails	takewhile(lambda x: x<5, [1,4,6,4,1]) --> 1 4
+tee()	it, n	it1, it2, . itn splits one iterator into n	 
+zip_longest()	p, q, .	(p[0], q[0]), (p[1], q[1]), .	zip_longest('ABCD', 'xy', fillvalue='-') --> Ax By C- D-
+
+Iterator	Arguments	Results
+product()	p, q, . [repeat=1]	cartesian product, equivalent to a nested for-loop
+permutations()	p[, r]	r-length tuples, all possible orderings, no repeated elements
+combinations()	p, r	r-length tuples, in sorted order, no repeated elements
+combinations_with_replacement()	p, r	r-length tuples, in sorted order, with repeated elements
+product('ABCD', repeat=2)	 	AA AB AC AD BA BB BC BD CA CB CC CD DA DB DC DD
+permutations('ABCD', 2)	 	AB AC AD BA BC BD CA CB CD DA DB DC
+combinations('ABCD', 2)	 	AB AC AD BC BD CD
+combinations_with_replacement('ABCD', 2)	 	AA AB AC AD BB BC BD CC CD DD
+
+# Operator
+operator.lt(a, b)
+operator.le(a, b)
+operator.eq(a, b)
+operator.ne(a, b)¶
+operator.ge(a, b)
+operator.gt(a, b)
+operator.__lt__(a, b)
+operator.__le__(a, b)
+operator.__eq__(a, b)
+operator.__ne__(a, b)
+operator.__ge__(a, b)
+operator.__gt__(a, b)
+Operation	Syntax	Function
+Addition	a + b	add(a, b)
+Concatenation	seq1 + seq2	concat(seq1, seq2)
+Containment Test	obj in seq	contains(seq, obj)
+Division	a / b	truediv(a, b)
+Division	a // b	floordiv(a, b)
+Bitwise And	a & b	and_(a, b)
+Bitwise Exclusive Or	a ^ b	xor(a, b)
+Bitwise Inversion	~ a	invert(a)
+Bitwise Or	a | b	or_(a, b)
+Exponentiation	a ** b	pow(a, b)
+Identity	a is b	is_(a, b)
+Identity	a is not b	is_not(a, b)
+Indexed Assignment	obj[k] = v	setitem(obj, k, v)
+Indexed Deletion	del obj[k]	delitem(obj, k)
+Indexing	obj[k]	getitem(obj, k)
+Left Shift	a << b	lshift(a, b)
+Modulo	a % b	mod(a, b)
+Multiplication	a * b	mul(a, b)
+Matrix Multiplication	a @ b	matmul(a, b)
+Negation (Arithmetic)	- a	neg(a)
+Negation (Logical)	not a	not_(a)
+Positive	+ a	pos(a)
+Right Shift	a >> b	rshift(a, b)
+Slice Assignment	seq[i:j] = values	setitem(seq, slice(i, j), values)
+Slice Deletion	del seq[i:j]	delitem(seq, slice(i, j))
+Slicing	seq[i:j]	getitem(seq, slice(i, j))
+String Formatting	s % obj	mod(s, obj)
+Subtraction	a - b	sub(a, b)
+Truth Test	obj	truth(obj)
+Ordering	a < b	lt(a, b)
+Ordering	a <= b	le(a, b)
+Equality	a == b	eq(a, b)
+Difference	a != b	ne(a, b)
+Ordering	a >= b	ge(a, b)
+Ordering	a > b	gt(a, b)
+
+https://docs.python.org/3/library/os.html
+https://docs.python.org/3/library/argparse.html
+https://docs.python.org/3/library/logging.html
+https://docs.python.org/3/library/concurrency.html
+https://docs.python.org/3/library/sched.html
+https://docs.python.org/3/library/_thread.html
+https://docs.python.org/3/library/ipc.html
+https://docs.python.org/3/library/socket.html
+https://docs.python.org/3/library/ssl.html
+https://docs.python.org/3/library/asynchat.html
+https://docs.python.org/3/library/uu.html
+https://docs.python.org/3/library/markup.html
+https://docs.python.org/3/library/internet.html
+https://docs.python.org/3/py-modindex.html
+
+import re
+if not re.match("^[0-1]*$", input_str):
+
+# Prime numbers in a given range
+start_num = int(input())
+end_num = int(input())
+count = 0
+for num in range(start_num, end_num+1):
+    if num > 2:
+        for i in range(2,num):
+            if (num % i) == 0:
+                break
+        else:
+            count += 1
+
+print(count)
+
+# print if the input is an amstrong number
+number = int(input())
+a = list(map(int,str(number)))
+b = list(map(lambda x: x**3,a))
+if sum(b) == number:
+    print('True')
+else:
+    print('False')
+
+# narcissistic number
+number = int(input())
+a = list(map(int,str(number)))
+c = [len(a)]*len(a)
+b = list(map(lambda x,y: x**y ,a,c))
+if sum(b) == number:
+    print('True')
+else:
+    print('False')
+
+# Print the second largest in an input array
+number = int(input())
+arraey = input()
+matrix = list(arraey.split())
+matrix = [int(i) for i in matrix] # converstion is very important
+matrix = sorted(set(matrix), reverse=True)
+print(matrix[1])
+
+
